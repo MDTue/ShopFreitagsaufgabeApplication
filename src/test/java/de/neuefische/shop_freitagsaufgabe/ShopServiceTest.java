@@ -7,9 +7,24 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class ShopServiceTest {
+    @Test
+    void testGetProducts(){
+        List<Product> products = List.of(new Product(), new Product());
+        ProductRepo dbMock = mock(ProductRepo.class);
+        OrderRepo dbMockOrder = mock(OrderRepo.class);
+        when(dbMock.list()).thenReturn(products);
 
+        ShopService service = new ShopService(dbMock,dbMockOrder);
+        List<Product> result = service.listProducts();
+        assertEquals(products, result);
+    }
+
+
+////////////////////////////////////////
     @Test
     void shouldFindProductByID(){
         //GIVEN
@@ -81,30 +96,11 @@ class ShopServiceTest {
         //WHEN
         myTestShop.addOrder(myTestOrder);
         //THEN
-        assertEquals(myTestOrder, myTestShop.getOrder(myTestOrder.getOrderID()).get());
+        assertEquals(myTestOrder, myTestShop.getOrder(myTestOrder.getOrderID()));
 
     }
 
-    @Test
-    void shouldBeOptionalEmpty(){
-        //GIVEN
-        Product myFirstProduct = new Product("Kartoffeln");
-        Product mySecondProduct  = new Product("Bier");
-        HashMap<String, Product> shoppingCart = new HashMap<>();
-        shoppingCart.put(myFirstProduct.getId(),myFirstProduct);
-        ProductRepo myProductRepo  = new ProductRepo();
-        myProductRepo.add(myFirstProduct);
-        myProductRepo.add(mySecondProduct);
-        OrderRepo myOrderRepo = new OrderRepo();
-        Order myTestOrder = new Order(shoppingCart);
 
-        ShopService myTestShop = new ShopService(myProductRepo,myOrderRepo);
-
-        //WHEN
-        Optional<Order> myOptOrder = myTestShop.getOrder("gibts nich");
-        //THEN
-        assertTrue(myOptOrder.isEmpty());
-    }
 
     @Test
     void shouldListAllOrders(){

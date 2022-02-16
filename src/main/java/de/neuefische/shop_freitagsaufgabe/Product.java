@@ -4,12 +4,25 @@ import java.util.UUID;
 
 public class Product {
 
-    private final String name;
-    private final String id;
-
+    private String name;
+    private String id;
+    // nur für tests
     public Product(String name) {
         this.name = name;
         this.id = UUID.randomUUID().toString();
+    }
+
+    public Product() {
+        this.id =  UUID.randomUUID().toString();
+    }
+
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {

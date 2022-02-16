@@ -28,7 +28,7 @@ public class ShopService {
         myOrderRepo.add(orderToAdd);
     }
 
-    public Optional<Order> getOrder(String whichOrderId){
+    public Order getOrder(String whichOrderId){
         return myOrderRepo.get(whichOrderId);
     }
 
@@ -42,5 +42,9 @@ public class ShopService {
 
     public void addProduct(Product product) {
         myProductRepo.add(product);
+    }
+
+    public List<Order> getAllOrder() {
+        return myOrderRepo.list();
     }
 }

@@ -21,8 +21,8 @@ public class OrderRepo {
         return allMyOrders.values().stream().toList();
     }
 
-    public Optional<Order> get(String whichOrderID){
-        return Optional.ofNullable(allMyOrders.get(whichOrderID));
+    public Order get(String whichOrderID){
+        return allMyOrders.get(whichOrderID);
     }
 
     public void add(Order orderToAdd){
