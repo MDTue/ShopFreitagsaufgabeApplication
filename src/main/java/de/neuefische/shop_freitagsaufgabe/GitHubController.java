@@ -12,13 +12,20 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 @RequestMapping("/github")
 public class GitHubController {
+    GitHubService gitHubService = new GitHubService();
 
-    @GetMapping("/githubUser")
+    public GitHubController(GitHubService gitHubService) {
+        this.gitHubService = gitHubService;
+    }
+
+    @GetMapping("/{githubUser}")
     public String[] getRepositoryNames(@PathVariable String githubUser){
-       String url = "https://api.github.com/users/" + githubUser + "/repos";
+
+    /*   String url = "https://api.github.com/users/" + githubUser + "/repos";
        RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<Repository[]> response = restTemplate.getForEntity(url, Repository[].class);
-        Repository[] repositories = response.getBody();
+        Repository[] repositories = response.getBody();*/
+        Repository[] repositories = gitHubService.getRepositories(githubUser);
         String[] repositoryNames = new String[repositories.length];
         for (int i=0; i<repositoryNames.length; i++) {
             repositoryNames[i]= repositories[i].getName();

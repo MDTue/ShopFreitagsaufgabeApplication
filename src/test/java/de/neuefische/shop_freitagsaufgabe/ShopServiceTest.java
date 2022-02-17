@@ -22,6 +22,10 @@ class ShopServiceTest {
         List<Product> result = service.listProducts();
         assertEquals(products, result);
     }
+    @Test
+    void shouldReturnAllProducts(){
+
+    }
 
 
 ////////////////////////////////////////

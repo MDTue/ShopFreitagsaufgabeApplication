@@ -7,6 +7,9 @@ public class Repository {
         this.name = name;
     }
 
+    public Repository() {
+    }
+
     public String getName() {
         return name;
     }
